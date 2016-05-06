@@ -47,7 +47,7 @@ public class CooldownPlayer {
 	{
 		if(warmUpCalls.containsKey(command.toLowerCase()))
 		{
-			return warmUpCalls.get(command.toLowerCase()) < System.currentTimeMillis() && warmUpCalls.get(command.toLowerCase()) + 1000 > System.currentTimeMillis();
+			return warmUpCalls.get(command.toLowerCase()) < System.currentTimeMillis() && warmUpCalls.get(command.toLowerCase()) + 2000 > System.currentTimeMillis();
 		}
 		return false;
 	}
@@ -85,6 +85,6 @@ public class CooldownPlayer {
 
 	public boolean hasTasks()
 	{
-		return tasks.size() > 0;
+		return !tasks.isEmpty();
 	}
 }

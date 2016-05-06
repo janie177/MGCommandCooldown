@@ -25,6 +25,9 @@ public class CooldownListener implements Listener {
 
 		String command = e.getMessage().toLowerCase().replace("/", "");
 
+		//Clear all tasks as soon as this is ran.
+		CooldownHandler.clearTasks(p.getName());
+
 		for(String s : CooldownHandler.getCommands())
 		{
 			if(command.startsWith(s))

@@ -85,7 +85,7 @@ public class CooldownHandler {
 			try {
 				Player player;
 				if((player = Bukkit.getPlayerExact(playerName)) != null) {
-					player.performCommand(command);
+					player.chat("/" + command);
 				}
 			} catch (Exception ignored) {}
 		}, (delay * 20) + 1));
