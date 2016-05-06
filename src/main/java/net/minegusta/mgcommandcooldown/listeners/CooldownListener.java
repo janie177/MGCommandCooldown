@@ -25,9 +25,6 @@ public class CooldownListener implements Listener {
 
 		String command = e.getMessage().toLowerCase().replace("/", "");
 
-		//TODO
-		Bukkit.broadcastMessage(command);
-
 		for(String s : CooldownHandler.getCommands())
 		{
 			Bukkit.broadcastMessage(s);

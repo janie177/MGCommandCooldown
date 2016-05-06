@@ -71,7 +71,11 @@ public class CooldownPlayer {
 
 	public void removeTask(int id)
 	{
-		if(tasks.contains(id)) tasks.remove(id);
+		if(tasks.contains(id))
+		{
+			int index = tasks.indexOf(id);
+			tasks.remove(index);
+		}
 	}
 
 	public List<Integer> getTasks()
