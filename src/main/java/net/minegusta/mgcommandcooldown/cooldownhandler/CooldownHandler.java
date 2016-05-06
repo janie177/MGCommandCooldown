@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
+import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
 
 public class CooldownHandler {
@@ -27,9 +28,9 @@ public class CooldownHandler {
 		}
 	}
 
-	public static String[] getCommands()
+	public static Set<String> getCommands()
 	{
-		return (String[]) commandCooldowns.keySet().toArray();
+		return commandCooldowns.keySet();
 	}
 
 	public static long getWarmup(String command)
