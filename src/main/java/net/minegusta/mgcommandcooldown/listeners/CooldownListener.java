@@ -10,6 +10,7 @@ import org.bukkit.event.entity.EntityDamageByBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 public class CooldownListener implements Listener {
@@ -112,5 +113,11 @@ public class CooldownListener implements Listener {
 				p.sendMessage(ChatColor.RED + "[CMD] " + ChatColor.GRAY + "You moved, which cancelled your command warm-ups.");
 			}
 		}
+	}
+
+	@EventHandler
+	public void onJoin(PlayerJoinEvent e)
+	{
+		CooldownHandler.createPlayerObject(e.getPlayer().getName());
 	}
 }
