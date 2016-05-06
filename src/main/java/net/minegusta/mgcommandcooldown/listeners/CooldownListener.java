@@ -53,6 +53,7 @@ public class CooldownListener implements Listener {
 				}
 
 				CooldownHandler.resetWarmup(p.getName(), s);
+				CooldownHandler.clearTasks(p.getName());
 				CooldownHandler.setPlayerCooldown(p.getName(), s, CooldownHandler.getCooldown(s));
 				break;
 			}
