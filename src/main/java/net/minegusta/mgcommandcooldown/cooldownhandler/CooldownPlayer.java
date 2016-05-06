@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class CooldownPlayer {
 	private String name;
 	private ConcurrentMap<String, Long> commands = Maps.newConcurrentMap();
-	private ConcurrentMap<String, Long> warmUpCalls = Maps.newConcurrentMap();
+	private ConcurrentMap<String, Boolean> warmUpCalls = Maps.newConcurrentMap();
 	private ConcurrentMap<Integer, Boolean> tasks = Maps.newConcurrentMap();
 
 	private CooldownPlayer(String name)
@@ -47,14 +47,14 @@ public class CooldownPlayer {
 	{
 		if(warmUpCalls.containsKey(command.toLowerCase()))
 		{
-			return Math.abs(warmUpCalls.get(command.toLowerCase()) - System.currentTimeMillis()) < 500;
+			return warmUpCalls.get(command.toLowerCase());
 		}
 		return false;
 	}
 
-	public void setWarmUp(String command, long warmUpDelay)
+	public void setWarmUp(String command, boolean warmedUp)
 	{
-		warmUpCalls.put(command.toLowerCase(), warmUpDelay + System.currentTimeMillis());
+		warmUpCalls.put(command.toLowerCase(), warmedUp);
 	}
 
 	public void resetWarmUp(String command)

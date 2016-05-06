@@ -80,11 +80,12 @@ public class CooldownHandler {
 	public static void scheduleWarmup(String playerName, String command, long delay)
 	{
 		CooldownPlayer p = playerCooldowns.get(playerName.toLowerCase());
-		p.setWarmUp(command, delay * 1000);
+		p.resetWarmUp(command);
 		p.addTask(Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), () -> {
 			try {
 				Player player;
 				if((player = Bukkit.getPlayerExact(playerName)) != null) {
+					p.setWarmUp(command, true);
 					player.chat("/" + command);
 				}
 			} catch (Exception ignored) {}
