@@ -47,7 +47,7 @@ public class CooldownPlayer {
 	{
 		if(warmUpCalls.containsKey(command.toLowerCase()))
 		{
-			return (warmUpCalls.get(command.toLowerCase()) < System.currentTimeMillis()) && (warmUpCalls.get(command.toLowerCase()) + 2000 > System.currentTimeMillis());
+			return Math.abs(warmUpCalls.get(command.toLowerCase()) - System.currentTimeMillis()) < 500;
 		}
 		return false;
 	}
