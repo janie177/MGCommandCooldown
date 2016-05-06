@@ -1,4 +1,4 @@
-main: net.minegusta.main.Main
+main: net.minegusta.mgcommandcooldown.main.Main
 name: MGCommandCooldown
 version: ${project.version}
 author: janie177
