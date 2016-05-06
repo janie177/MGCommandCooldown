@@ -38,7 +38,7 @@ public class CooldownListener implements Listener {
 				long cooldown;
 
 				//Player has cooldown
-				if(!(p.hasPermission("minegusta.cooldown.bypass." + commandPermNode)) && (cooldown = CooldownHandler.getPlayerCooldown(p.getName(), s)) != 0)
+				if(!(p.hasPermission("minegusta.cooldown.bypass." + commandPermNode)) && (cooldown = CooldownHandler.getPlayerCooldown(p.getName(), s)) > 0)
 				{
 					p.sendMessage(ChatColor.RED + "[CMD] " + ChatColor.YELLOW + "You have to wait another " + ChatColor.LIGHT_PURPLE + cooldown + ChatColor.YELLOW + " seconds before you can use that command.");
 					e.setCancelled(true);
