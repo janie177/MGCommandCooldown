@@ -27,7 +27,6 @@ public class CooldownListener implements Listener {
 
 		for(String s : CooldownHandler.getCommands())
 		{
-			Bukkit.broadcastMessage(s);
 			if(command.startsWith(s))
 			{
 				String commandPermNode = s.replace(" ", "");
