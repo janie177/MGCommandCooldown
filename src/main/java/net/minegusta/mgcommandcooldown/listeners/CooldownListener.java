@@ -1,6 +1,7 @@
 package net.minegusta.mgcommandcooldown.listeners;
 
 import net.minegusta.mgcommandcooldown.cooldownhandler.CooldownHandler;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,37 +24,39 @@ public class CooldownListener implements Listener {
 		if(e.isCancelled()) return;
 
 		String command = e.getMessage().toLowerCase().replace("/", "");
+
+		//TODO
+		Bukkit.broadcastMessage(command);
+
 		for(String s : CooldownHandler.getCommands())
 		{
+			Bukkit.broadcastMessage(s);
 			if(command.startsWith(s))
 			{
 				String commandPermNode = s.replace(" ", "");
-				if(!p.hasPermission("minegusta.cooldown.bypass." + commandPermNode))
-				{
-					//Check the cooldown and send a message if the player cannot run the command.
-					long cooldown;
 
-					//Player has cooldown
-					if((cooldown = CooldownHandler.getPlayerCooldown(p.getName(), s)) != 0)
-					{
-						p.sendMessage(ChatColor.RED + "[CMD] " + ChatColor.YELLOW + "You have to wait another " + ChatColor.LIGHT_PURPLE + cooldown + ChatColor.YELLOW + " seconds before you can use that command.");
-						e.setCancelled(true);
-						return;
-					}
-					long warmup;
-					if((warmup = CooldownHandler.getWarmup(s)) != 0 && !CooldownHandler.isWarmedUp(p.getName(), s))
-					{
-						p.sendMessage(ChatColor.GREEN + "[CMD] " + ChatColor.GRAY + "Your command is warming up! It will run in " + ChatColor.YELLOW + warmup + ChatColor.GRAY + " seconds.");
-						p.sendMessage(ChatColor.GREEN + "[CMD] " + ChatColor.GRAY + "Moving or taking damage will cancel the command warmup.");
-						CooldownHandler.scheduleWarmup(p.getName(), s, CooldownHandler.getWarmup(s));
-						e.setCancelled(true);
-						return;
-					}
-					CooldownHandler.resetWarmup(p.getName(), s);
-					//Set the cooldown for the player if the command does run.
-					CooldownHandler.setPlayerCooldown(p.getName(), s, CooldownHandler.getCooldown(s));
+				//Check the cooldown and send a message if the player cannot run the command.
+				long cooldown;
+
+				//Player has cooldown
+				if(!(p.hasPermission("minegusta.cooldown.bypass." + commandPermNode)) && (cooldown = CooldownHandler.getPlayerCooldown(p.getName(), s)) != 0)
+				{
+					p.sendMessage(ChatColor.RED + "[CMD] " + ChatColor.YELLOW + "You have to wait another " + ChatColor.LIGHT_PURPLE + cooldown + ChatColor.YELLOW + " seconds before you can use that command.");
+					e.setCancelled(true);
 					return;
 				}
+				long warmup;
+				if(!(p.hasPermission("minegusta.warmup.bypass." + commandPermNode)) && (warmup = CooldownHandler.getWarmup(s)) != 0 && !CooldownHandler.isWarmedUp(p.getName(), s))
+				{
+					p.sendMessage(ChatColor.GREEN + "[CMD] " + ChatColor.GRAY + "Your command is warming up! It will run in " + ChatColor.YELLOW + warmup + ChatColor.GRAY + " seconds.");
+					p.sendMessage(ChatColor.GREEN + "[CMD] " + ChatColor.GRAY + "Moving or taking damage will cancel the command warmup.");
+					CooldownHandler.scheduleWarmup(p.getName(), s, CooldownHandler.getWarmup(s));
+					e.setCancelled(true);
+					return;
+				}
+
+				CooldownHandler.resetWarmup(p.getName(), s);
+				CooldownHandler.setPlayerCooldown(p.getName(), s, CooldownHandler.getCooldown(s));
 				break;
 			}
 		}

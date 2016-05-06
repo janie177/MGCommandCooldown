@@ -29,6 +29,7 @@ public class Main extends JavaPlugin {
 		//listeners
 		Bukkit.getPluginManager().registerEvents(new CooldownListener(), this);
 
+		Bukkit.getOnlinePlayers().stream().forEach(p -> CooldownHandler.createPlayerObject(p.getName()));
 
 	}
 

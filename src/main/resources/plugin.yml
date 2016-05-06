@@ -8,3 +8,11 @@ commands:
       usage: /MGCCReload
       permission: minegusta.cooldown.reload
       default: op
+
+permissions:
+  minegusta.cooldown.bypass:
+    default: op
+    description: lets you bypass cooldowns.
+  minegusta.warmup.bypass:
+    default: op
+    description: lets you bypass warmups.

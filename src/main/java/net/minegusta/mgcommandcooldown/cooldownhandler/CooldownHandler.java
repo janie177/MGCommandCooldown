@@ -22,9 +22,9 @@ public class CooldownHandler {
 		{
 			long cooldown = conf.getLong(s + ".cooldown", 0);
 			long warmup = conf.getLong(s + ".warmup", 0);
-			String name = conf.getString(s + ".name", s);
+			String name = conf.getString(s + ".command", s);
 
-			commandCooldowns.put(s.toLowerCase(), CooldownCommand.create(name.toLowerCase(), cooldown, warmup));
+			commandCooldowns.put(name.toLowerCase(), CooldownCommand.create(name.toLowerCase(), cooldown, warmup));
 		}
 	}
 

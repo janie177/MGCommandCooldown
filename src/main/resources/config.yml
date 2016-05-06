@@ -1,4 +1,4 @@
 #command:
 #  cooldown: 1
 #  warmup: 2
-#  name: 'f home'
+#  command: 'f home'
