@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
@@ -11,7 +12,7 @@ public class CooldownPlayer {
 	private String name;
 	private ConcurrentMap<String, Long> commands = Maps.newConcurrentMap();
 	private ConcurrentMap<String, Long> warmUpCalls = Maps.newConcurrentMap();
-	private List<Integer> tasks = Lists.newArrayList();
+	private ConcurrentMap<Integer, Boolean> tasks = Maps.newConcurrentMap();
 
 	private CooldownPlayer(String name)
 	{
@@ -66,21 +67,20 @@ public class CooldownPlayer {
 
 	public void addTask(int id)
 	{
-		tasks.add(id);
+		tasks.put(id, false);
 	}
 
 	public void removeTask(int id)
 	{
-		if(tasks.contains(id))
+		if(tasks.containsKey(id))
 		{
-			int index = tasks.indexOf(id);
-			tasks.remove(index);
+			tasks.remove(id);
 		}
 	}
 
-	public List<Integer> getTasks()
+	public Set<Integer> getTasks()
 	{
-		return tasks;
+		return tasks.keySet();
 	}
 
 	public boolean hasTasks()
