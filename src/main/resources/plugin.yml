@@ -1,0 +1,10 @@
+main: net.minegusta.main.Main
+name: MGCommandCooldown
+version: ${project.version}
+author: janie177
+commands:
+   mgccreload:
+      description: Reload all the cooldowns from the config.
+      usage: /MGCCReload
+      permission: minegusta.cooldown.reload
+      default: op
