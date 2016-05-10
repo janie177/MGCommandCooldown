@@ -3,6 +3,7 @@ package net.minegusta.mgcommandcooldown.listeners;
 import net.minegusta.mgcommandcooldown.cooldownhandler.CooldownHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -13,6 +14,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.plugin.Plugin;
 
 public class CooldownListener implements Listener {
 
@@ -31,10 +33,22 @@ public class CooldownListener implements Listener {
 		if(command.contains(":"))
 		{
 			String[] split = command.split(":");
-			if(Bukkit.getPluginManager().getPlugin(split[0]) != null)
+
+			boolean pluginEnabled = false;
+			for(Plugin pl : Bukkit.getPluginManager().getPlugins())
+			{
+				if(pl.getName().equalsIgnoreCase(split[0]))
+				{
+					pluginEnabled = true;
+					break;
+				}
+			}
+
+			if(pluginEnabled)
 			{
 				if(split.length == 1)
 				{
+					e.setCancelled(true);
 					return;
 				}
 
@@ -48,6 +62,15 @@ public class CooldownListener implements Listener {
 		}
 
 		command = command.trim();
+
+		String[] base = command.split(" ");
+
+		//Alias detection
+		PluginCommand pluginCommand;
+		if((pluginCommand = Bukkit.getPluginCommand(base[0])) != null)
+		{
+			command = command.replace(base[0], pluginCommand.getName());
+		}
 
 		for(String s : CooldownHandler.getCommands())
 		{
