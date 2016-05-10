@@ -1,6 +1,7 @@
 package net.minegusta.mgcommandcooldown.commands;
 
 import net.minegusta.mgcommandcooldown.cooldownhandler.CooldownHandler;
+import net.minegusta.mgcommandcooldown.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -13,6 +14,7 @@ public class ReloadCommand implements CommandExecutor {
 		if(s.isOp() || s.hasPermission("minegusta.cooldown.reload"))
 		{
 			s.sendMessage(ChatColor.GREEN + "Minegusta Cooldowns Reloaded.");
+			Main.getPlugin().reloadConfig();
 			CooldownHandler.clearAll();
 			CooldownHandler.loadFromConfig();
 			Bukkit.getOnlinePlayers().stream().forEach(p -> CooldownHandler.createPlayerObject(p.getName()));

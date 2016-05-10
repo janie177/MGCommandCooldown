@@ -18,7 +18,7 @@ public class CooldownHandler {
 	{
 		commandCooldowns.clear();
 		FileConfiguration conf = Main.getPlugin().getConfig();
-		for(String s : conf.getKeys(false))
+		for(String s : Main.getPlugin().getConfig().getKeys(false))
 		{
 			long cooldown = conf.getLong(s + ".cooldown", 0);
 			long warmup = conf.getLong(s + ".warmup", 0);
