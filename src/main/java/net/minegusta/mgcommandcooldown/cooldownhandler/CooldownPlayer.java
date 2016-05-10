@@ -31,7 +31,7 @@ public class CooldownPlayer {
 
 	public boolean hasCooldown(String command)
 	{
-		return commands.containsKey(command.toLowerCase()) && commands.get(command.toLowerCase()) < System.currentTimeMillis();
+		return commands.containsKey(command.toLowerCase()) && commands.get(command.toLowerCase()) > System.currentTimeMillis();
 	}
 
 	public long getRemainingSeconds(String command)

@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 public class CooldownListener implements Listener {
 
-	@EventHandler(priority = EventPriority.LOWEST)
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onEvent(PlayerCommandPreprocessEvent e)
 	{
 		Player p = e.getPlayer();
@@ -27,6 +27,27 @@ public class CooldownListener implements Listener {
 
 		//Clear all tasks as soon as this is ran.
 		CooldownHandler.clearTasks(p.getName());
+
+		if(command.contains(":"))
+		{
+			String[] split = command.split(":");
+			if(Bukkit.getPluginManager().getPlugin(split[0]) != null)
+			{
+				if(split.length == 1)
+				{
+					return;
+				}
+
+				String cmd = "";
+				for(int i = 1; i < split.length; i++)
+				{
+					cmd = cmd + " " + split[i];
+				}
+				command = cmd;
+			}
+		}
+
+		command = command.trim();
 
 		for(String s : CooldownHandler.getCommands())
 		{
@@ -49,14 +70,14 @@ public class CooldownListener implements Listener {
 				{
 					p.sendMessage(ChatColor.GREEN + "[CMD] " + ChatColor.GRAY + "Your command is warming up! It will run in " + ChatColor.YELLOW + warmup + ChatColor.GRAY + " seconds.");
 					p.sendMessage(ChatColor.GREEN + "[CMD] " + ChatColor.GRAY + "Moving or taking damage will cancel the command warmup.");
-					CooldownHandler.scheduleWarmup(p.getName(), s, CooldownHandler.getWarmup(s));
+					CooldownHandler.scheduleWarmup(p.getName(), command, CooldownHandler.getWarmup(s));
 					e.setCancelled(true);
 					return;
 				}
 
 				CooldownHandler.resetWarmup(p.getName(), s);
 				CooldownHandler.clearTasks(p.getName());
-				CooldownHandler.setPlayerCooldown(p.getName(), s, CooldownHandler.getCooldown(s));
+				CooldownHandler.setPlayerCooldown(p.getName(), command, CooldownHandler.getCooldown(s));
 				break;
 			}
 		}

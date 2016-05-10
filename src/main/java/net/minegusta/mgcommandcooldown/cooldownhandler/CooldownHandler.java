@@ -121,4 +121,10 @@ public class CooldownHandler {
 		CooldownPlayer p = playerCooldowns.get(player.toLowerCase());
 		return p.hasTasks();
 	}
+
+	public static void clearAll()
+	{
+		commandCooldowns.clear();
+		playerCooldowns.clear();
+	}
 }
