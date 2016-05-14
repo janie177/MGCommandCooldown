@@ -77,7 +77,7 @@ public class CooldownHandler {
 		playerCooldowns.putIfAbsent(playername.toLowerCase(), CooldownPlayer.create(playername.toLowerCase()));
 	}
 
-	public static void scheduleWarmup(String playerName, String command, long delay)
+	public static void scheduleWarmup(String playerName, String command, String exactCommand, long delay)
 	{
 		CooldownPlayer p = playerCooldowns.get(playerName.toLowerCase());
 		p.resetWarmUp(command);
@@ -86,7 +86,7 @@ public class CooldownHandler {
 				Player player;
 				if((player = Bukkit.getPlayerExact(playerName)) != null) {
 					p.setWarmUp(command, true);
-					player.chat("/" + command);
+					player.chat("/" + exactCommand);
 				}
 			} catch (Exception ignored) {}
 		}, (delay * 20) + 1));

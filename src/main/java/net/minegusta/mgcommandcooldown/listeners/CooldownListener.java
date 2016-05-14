@@ -93,7 +93,7 @@ public class CooldownListener implements Listener {
 				{
 					p.sendMessage(ChatColor.GREEN + "[CMD] " + ChatColor.GRAY + "Your command is warming up! It will run in " + ChatColor.YELLOW + warmup + ChatColor.GRAY + " seconds.");
 					p.sendMessage(ChatColor.GREEN + "[CMD] " + ChatColor.GRAY + "Moving or taking damage will cancel the command warmup.");
-					CooldownHandler.scheduleWarmup(p.getName(), command, CooldownHandler.getWarmup(s));
+					CooldownHandler.scheduleWarmup(p.getName(), s, command, CooldownHandler.getWarmup(s));
 					e.setCancelled(true);
 					return;
 				}
